@@ -1,2 +1,2 @@
-# weather-app
-weather
+# qulix-test-assigment
+qulix-test-assigment
