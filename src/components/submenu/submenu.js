@@ -1,55 +1,45 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function Submenu() {
+function Submenu(props) {
+  const { handleTypeEmail } = props;
+  const main = ['draft', 'trash'];
+  const category = ['social', 'personal', 'forums', 'updates', 'promotions'];
+  const essential = ['sent', 'spam', 'snoozed'];
+  const selected = ['starred', 'important', 'unread'];
+  const others = ['scheduled', 'chats'];
+
+  const addTypes = (arr, type, title) => (
+    <section className="submenuSection">
+      <h4 className="submenuCategory">{title}</h4>
+      <ul className="nav">
+        { arr.map((item) => {
+          const labelMsg = `${type}:${item}`;
+          return (
+            <li key={item}>
+              <button type="button" onClick={() => handleTypeEmail(labelMsg)}>
+                {item}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+
   return (
     <aside className="submenu">
-      <section className="submenuSection">
-        <ul className="nav">
-          <li><a href="#" title="Submenu">Submenu item 7d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 5d</a></li>
-        </ul>
-      </section>
-      <section className="submenuSection">
-        <h4 className="submenuCategory">Submenu</h4>
-        <ul className="nav">
-          <li><a href="#" title="Submenu">Submenu item 7d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 2d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 4d</a></li>
-          <li><a href="#" title="Submenu">More tags</a></li>
-        </ul>
-      </section>
-
-      <section className="submenuSection">
-        <h4 className="submenuCategory">Submenu</h4>
-        <ul className="nav">
-          <li><a href="#" title="Submenu" className="active">Submenu item 1d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 1d</a></li>
-        </ul>
-      </section>
-
-      <section className="submenuSection">
-        <h4 className="submenuCategory">Submenu</h4>
-        <ul className="nav">
-          <li><a href="#" title="Submenu">Submenu item 4d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 2d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 2d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 7d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 1d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 1d</a></li>
-        </ul>
-      </section>
-
-      <section className="submenuSection">
-        <h4 className="submenuCategory">Submenu</h4>
-        <ul className="nav">
-          <li><a href="#" title="Submenu">Submenu item 2d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 1d</a></li>
-          <li><a href="#" title="Submenu">Submenu item 3d</a></li>
-        </ul>
-      </section>
-
+      {addTypes(main, 'in', '')}
+      {addTypes(essential, 'in', 'Essential')}
+      {addTypes(others, 'in', 'Others')}
+      {addTypes(category, 'category', 'Category')}
+      {addTypes(selected, 'is', 'Selected')}
     </aside>
   );
 }
+
+Submenu.propTypes = {
+  handleTypeEmail: PropTypes.func.isRequired,
+};
 
 export default Submenu;

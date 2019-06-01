@@ -30,7 +30,7 @@ class App extends Component {
     error: false,
   }
 
-  responseGoogle = (response) => {    
+  responseGoogle = (response) => {
     const { accessToken, profileObj } = response;
     const { email, name, imageUrl } = profileObj;
     const { search } = this.state;
@@ -46,6 +46,7 @@ class App extends Component {
     const request = `${gmailAddr}${email}/messages`;
     const reqListMail = `${request}?${maxResults}&${nextPage}&access_token=${accessToken}&q=${filter}`;
     this.setState({ loading: true, error: false });
+    console.log(reqListMail);
     fetch(reqListMail)
       .then(body => body.json())
       .then((data) => {
@@ -77,13 +78,13 @@ class App extends Component {
           loading: false,
         }));
       })
-      .catch(err => this.setState({ error: true }));
+      .catch(() => this.setState({ error: true }));
   }
 
   handleButtons = (btn) => {
     const {
       page, pageToken, token, email, search, endMail, messages,
-    } = this.state;  
+    } = this.state;
     if (endMail && page + 1 >= Math.ceil(messages.length / 4)) {
       this.setState({ disableBtnNext: true });
     }
@@ -121,10 +122,27 @@ class App extends Component {
     this.getList(email, 'pageToken=', token, value);
   }
 
+  handleTypeEmail = (type) => {
+    const {
+      email, token,
+    } = this.state;
+    this.setState({
+      messages: [],
+      pageToken: [],
+      page: 1,
+      mailData: [],
+      value: type,
+      search: type,
+      endMail: false,
+      disableBtnNext: false,
+    });
+    this.getList(email, 'pageToken=', token, type);
+  }
+
   render() {
     const {
       token, mailData, page, value, disableBtnNext, imageUrl, name, loading, error,
-    } = this.state;   
+    } = this.state;
     const mailArr = mailData.slice(4 * (page - 1), 4 * page);
     if (token) {
       return (
@@ -132,7 +150,7 @@ class App extends Component {
           <Header imageUrl={imageUrl} name={name} />
           <Navbar />
           <main className="container main">
-            <Submenu />
+            <Submenu handleTypeEmail={this.handleTypeEmail} />
             <section className="mainSection">
               <PageTitle />
               <SearchRow
@@ -142,7 +160,7 @@ class App extends Component {
               />
               <section className="postsContainer">
                 {error && <h1 className="error-message">Something is wrong! Reload the page!</h1>}
-                {(!loading && !error) && mailArr.map((item, index) => {                 
+                {(!loading && !error) && mailArr.map((item, index) => {
                   const key = `media-${index}`;
                   return (
                     <Media

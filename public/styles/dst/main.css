@@ -7645,21 +7645,29 @@ button.close {
   font-family: 'Georgia', serif;
   margin: 0 0 8px 30px;
 }
-.testProject .main .submenu .submenuSection .nav > li > a {
-  padding: 5px 10px 5px 25px;
-  border-left: 5px solid #fcfdfe;
+.testProject .main .submenu .submenuSection .nav > li > button {
+  background: none;
+  color: inherit;
+  border: none;
+  margin: 5px 20px;
+  padding: 0;
+  font: inherit;
+  font-size: 16px;
+  text-transform: capitalize;
+  /*border is optional*/
+  cursor: pointer;
   color: #99a1b3;
 }
-.testProject .main .submenu .submenuSection .nav > li > a:hover {
+.testProject .main .submenu .submenuSection .nav > li > button:hover {
   text-decoration: underline;
 }
-.testProject .main .submenu .submenuSection .nav > li > a:hover,
-.testProject .main .submenu .submenuSection .nav > li > a:focus {
+.testProject .main .submenu .submenuSection .nav > li > button:hover,
+.testProject .main .submenu .submenuSection .nav > li > button:focus {
   background-color: transparent;
 }
-.testProject .main .submenu .submenuSection .nav > li > a:focus,
-.testProject .main .submenu .submenuSection .nav > li > a:active,
-.testProject .main .submenu .submenuSection .nav > li > a.active {
+.testProject .main .submenu .submenuSection .nav > li > button:focus,
+.testProject .main .submenu .submenuSection .nav > li > button:active,
+.testProject .main .submenu .submenuSection .nav > li > button.active {
   border-left: 5px solid #99a1b3;
   color: #333333;
 }
