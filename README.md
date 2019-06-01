@@ -9,3 +9,6 @@ After this you can launch this app: npm start.
 You also need to change url from 'localhost' to 'http://qulix.test/'.
 
 I hope I fullfiled essential requirements.
+
+I add a feature, which allows you to remove email. You need to select email by checkbox and click trash-icon. This is the simplest feature without putting email in trash. You completely discard messages from your box without possibility to return them. I did this, because I neeed to gain practice with diffent types of HTTP-requests.
+
