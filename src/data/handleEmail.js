@@ -1,10 +1,10 @@
 import convert from './convert';
 
-const handleEmail = url => (
+const handleEmail = (url, id) => (
   fetch(url)
     .then(data => data.json())
     .then((data) => {
-      const obj = {};      
+      const obj = {};
       data.payload.headers.filter((item) => {
         if (item.name === 'From' || item.name === 'Subject') {
           obj[item.name] = item.value;
@@ -18,6 +18,7 @@ const handleEmail = url => (
       });
       obj.snippet = convert(data.snippet);
       obj.tag = data.labelIds;
+      obj.id = id;
       return obj;
     }));
 

@@ -10,7 +10,6 @@ import Media from './components/media';
 import Buttons from './components/buttons';
 import Footer from './components/footer';
 import handleEmail from './data/handleEmail';
-import './App.css';
 
 class App extends Component {
   state = {
@@ -28,6 +27,7 @@ class App extends Component {
     disableBtnNext: false,
     loading: false,
     error: false,
+    deleted: [],
   }
 
   responseGoogle = (response) => {
@@ -69,7 +69,13 @@ class App extends Component {
         if (endMail && page >= Math.ceil(messages.length / 4)) {
           this.setState({ disableBtnNext: true });
         }
-        for (let i = 0; i < data.length; i += 1) arr.push(handleEmail(`${request}/${data[i].id}?access_token=${accessToken}`));
+        for (let i = 0; i < data.length; i += 1) {
+          arr.push(
+            handleEmail(
+              `${request}/${data[i].id}?access_token=${accessToken}`, data[i].id,
+            ),
+          );
+        }
         return Promise.all(arr);
       })
       .then((data) => {
@@ -139,11 +145,23 @@ class App extends Component {
     this.getList(email, 'pageToken=', token, type);
   }
 
+  handleSelectEmail = (event) => {
+    const { deleted } = this.state;
+    const arr = deleted;
+    const { id, checked } = event.target;
+    console.log(checked);
+    console.log(id);
+    if (checked) arr.push(id);
+    else arr.splice(arr.indexOf(id), 1);
+    this.setState({ deleted: arr });
+  }
+
   render() {
     const {
       token, mailData, page, value, disableBtnNext, imageUrl, name, loading, error,
     } = this.state;
     const mailArr = mailData.slice(4 * (page - 1), 4 * page);
+    console.log(this.state);
     if (token) {
       return (
         <div className="wrapper">
@@ -166,6 +184,7 @@ class App extends Component {
                     <Media
                       key={key}
                       mailData={item}
+                      handleSelectEmail={this.handleSelectEmail}
                     />
                   );
                 })}

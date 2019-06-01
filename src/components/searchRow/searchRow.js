@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function SearchRow(props) {
-  const { handleChange, value, handleSearch } = props;
+  const { handleChange, value, handleSearch, handleDelete } = props;
   return (
     <div className="searchForm row">
 
@@ -23,7 +23,7 @@ function SearchRow(props) {
           <span>New Item</span>
         </a>
 
-        <button type="button" className="btn btn-sm btn-option">
+        <button type="button" className="btn btn-sm btn-option" onClick={handleDelete} >
           <i className="icon-sliders" />
         </button>
       </div>
@@ -35,6 +35,7 @@ function SearchRow(props) {
 SearchRow.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 

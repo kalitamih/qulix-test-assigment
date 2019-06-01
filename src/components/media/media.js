@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 function Media(props) {
-  const { mailData } = props;
+  const { mailData, handleSelectEmail } = props;
   return (
     <section className="media">
       <div className="media-body">
         <div className="userInfo clearfix">
           <span>{mailData.From}</span>
           <div className="commentsAndTime pull-right">
+            <label htmlFor={mailData.id}>
+              <input type="checkbox" id={mailData.id} onChange={handleSelectEmail} />
+              <span className="checkmark" />
+            </label>
             <span>
               <i className="icon-clock" />
               <time>{mailData.Date}</time>
@@ -17,7 +20,9 @@ function Media(props) {
           </div>
         </div>
         <div className="itemName">
-          <button type="button" className="media-heading" title="Item title">{mailData.Subject}</button>
+          <button type="button" className="media-heading" title="Item title">
+            {mailData.Subject}
+          </button>
         </div>
         <p>
           {mailData.snippet}
@@ -40,6 +45,7 @@ function Media(props) {
 
 Media.propTypes = {
   mailData: PropTypes.shape({
+    id: PropTypes.string,
     Date: PropTypes.string,
     From: PropTypes.string,
     Subject: PropTypes.string,
@@ -55,6 +61,7 @@ Media.propTypes = {
       ],
     )),
   }).isRequired,
+  handleSelectEmail: PropTypes.func.isRequired,
 };
 
 export default Media;
