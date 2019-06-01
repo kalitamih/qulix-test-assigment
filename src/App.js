@@ -10,6 +10,7 @@ import Media from './components/media';
 import Buttons from './components/buttons';
 import Footer from './components/footer';
 import handleEmail from './data/handleEmail';
+import deleteMail from './data/deleteMail';
 
 class App extends Component {
   state = {
@@ -124,6 +125,7 @@ class App extends Component {
       search: value,
       endMail: false,
       disableBtnNext: false,
+      deleted: [],
     });
     this.getList(email, 'pageToken=', token, value);
   }
@@ -156,6 +158,26 @@ class App extends Component {
     this.setState({ deleted: arr });
   }
 
+  handleDelete = (event) => {
+    event.preventDefault();
+    console.log('click');
+    const {
+      deleted, email, token, search,
+    } = this.state;
+    deleteMail(deleted, email, token)
+      .then(data => { this.getList(email, 'pageToken=', token, search); return null; })
+      .catch(() => this.setState({ error: true }));
+    this.setState({
+      messages: [],
+      pageToken: [],
+      page: 1,
+      mailData: [],
+      deleted: [],
+      endMail: false,
+      disableBtnNext: false,
+    });
+  }
+
   render() {
     const {
       token, mailData, page, value, disableBtnNext, imageUrl, name, loading, error,
@@ -175,6 +197,7 @@ class App extends Component {
                 value={value}
                 handleChange={this.handleChange}
                 handleSearch={this.handleSearch}
+                handleDelele={this.handleDelete}
               />
               <section className="postsContainer">
                 {error && <h1 className="error-message">Something is wrong! Reload the page!</h1>}

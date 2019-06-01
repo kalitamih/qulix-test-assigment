@@ -7654,7 +7654,6 @@ button.close {
   font: inherit;
   font-size: 16px;
   text-transform: capitalize;
-  /*border is optional*/
   cursor: pointer;
   color: #99a1b3;
 }
@@ -7780,13 +7779,13 @@ button.close {
   font-family: 'Georgia', serif;
   display: inline-block;
   margin-right: 65px;
-  color: #99a1b3;
-}
-.testProject .main .mainSection .searchForm .options .newItem:hover,
-.testProject .main .mainSection .searchForm .options .newItem:focus,
-.testProject .main .mainSection .searchForm .options .newItem:active {
-  text-decoration: none;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  outline: 0;
   cursor: pointer;
+  color: #99a1b3;
 }
 .testProject .main .mainSection .searchForm .options .newItem:hover {
   color: #b6bcc9;
@@ -7840,12 +7839,18 @@ button.close {
   border: none;
   box-shadow: none;
 }
-.testProject .main .mainSection .searchForm .options .btn-option .icon-sliders {
+.testProject .main .mainSection .searchForm .options .btn-option .icon-trash {
   color: #99a1b3;
-  font-size: 1.5em;
+  font-size: 2em;
 }
-.testProject .main .mainSection .searchForm .options .btn-option .icon-sliders:hover {
+.testProject .main .mainSection .searchForm .options .btn-option .icon-trash:hover {
   color: #b6bcc9;
+}
+@media (max-width: 767px) {
+  .testProject .main .mainSection .searchForm .options .btn-option .icon-trash {
+    position: relative;
+    top: -5px;
+  }
 }
 .testProject .main .mainSection .postsContainer {
   height: 800px;

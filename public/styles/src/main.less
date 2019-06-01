@@ -322,8 +322,7 @@
               padding:0;
               font: inherit;
               font-size: 16px;
-              text-transform: capitalize;
-              /*border is optional*/             
+              text-transform: capitalize;                          
               cursor: pointer;
               color: @gray-light;
               .nav-a-style;
@@ -419,8 +418,13 @@
             font-family: 'Georgia', serif;
             display: inline-block;
             margin-right: 65px;
-            color: @gray-light;
-            .a-no-line-on-hover;
+            background:none;
+            color:inherit;
+            border:none;             
+            padding: 0;  
+            outline: 0;                             
+            cursor: pointer;
+            color: @gray-light;            
             .hover-color(@gray-lighter);
             @media (max-width: (@screen-sm-min - 1)) {              
               position: absolute; 
@@ -455,10 +459,14 @@
           .btn-option {
             margin-right: 15px;
             .my-btn-style;
-            .icon-sliders {
+            .icon-trash {
               color: @gray-light;
-              font-size: 1.5em;
+              font-size: 2em;
               .hover-color(@gray-lighter);
+              @media (max-width: (@screen-sm-min - 1)) {                
+                position: relative;
+                top: -5px;
+              }
             }   
           }
         }

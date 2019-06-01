@@ -119,6 +119,18 @@
       "css": "search-1",
       "code": 59397,
       "src": "websymbols"
+    },
+    {
+      "uid": "bbfb51903f40597f0b70fd75bc7b5cac",
+      "css": "trash",
+      "code": 61944,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "id8wp0cygl9trzbhlbd9o0fygiesi629",
+      "css": "search",
+      "code": 59403,
+      "src": "modernpics"
     }
   ]
 }
