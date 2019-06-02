@@ -19,16 +19,16 @@ function Wrapper(props) {
     handleChange, handleSearch, handleDelete,
     handleTypeEmail, handleSelectEmail,
     modalWindow, handleWindow,
-    recipient, subject, body,
+    recipient, subject, body, city,
   } = props;
   return (
     <div className="wrapper">
-      <Header imageUrl={imageUrl} name={name} />
+      <Header imageUrl={imageUrl} name={name} city={city} />
       <Navbar />
       <main className="container main">
         <Submenu handleTypeEmail={handleTypeEmail} />
         <section className="mainSection">
-          <PageTitle />
+          <PageTitle city={city} />
           <SearchRow
             value={value}
             handleChange={handleChange}
@@ -85,6 +85,7 @@ Wrapper.propTypes = {
   body: PropTypes.string.isRequired,
   recipient: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
   mailArr: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     Date: PropTypes.string,

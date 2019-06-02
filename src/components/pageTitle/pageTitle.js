@@ -1,12 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function PageTitle() {
+function PageTitle(props) {
+  const { city } = props;
   return (
     <div className="heading">
       <h1>Page title in</h1>
       <div className="dropdown">
         <a className="dropdown-toggle" className="dropdownMenu2" data-toggle="dropdown" aria-expanded="true" href="#">
-          <span>New York</span>
+          <span>{city}</span>
           <i className="icon-down-open" />
         </a>
         <ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
@@ -18,5 +20,9 @@ function PageTitle() {
     </div>
   );
 }
+
+PageTitle.propTypes = {
+  city: PropTypes.string.isRequired,
+};
 
 export default PageTitle;

@@ -4,7 +4,7 @@ import formatEmail from 'format-email';
 import { Base64 } from 'js-base64';
 import Wrapper from './components/wrapper';
 import {
-  getArrEmails, handleErrors, deleteMail, sentEmail,
+  getArrEmails, handleErrors, deleteMail, sentEmail, getCity,
 } from './data';
 import {
   GMAIL_ADDR, CHUNK, MAX_RES, CLIENT_ID,
@@ -31,6 +31,7 @@ class App extends Component {
     recipient: '',
     subject: '',
     body: '',
+    city: '',
   }
 
   resetState = (value, search) => {
@@ -48,6 +49,7 @@ class App extends Component {
       recipient: '',
       subject: '',
       body: '',
+      city: '',
     });
   }
 
@@ -62,6 +64,8 @@ class App extends Component {
       imageUrl,
     });
     this.getList(email, 'pageToken=', accessToken, search);
+    getCity()
+      .then(data => this.setState({ city: data.city }));
   }
 
   disableNextBtn = (inc) => {
@@ -224,7 +228,7 @@ class App extends Component {
       value, disableBtnNext, imageUrl,
       name, loading, error,
       subject, recipient, body,
-      modalWindow,
+      modalWindow, city,
     } = this.state;
     const mailArr = mailData.slice(CHUNK * (page - 1), CHUNK * page);
     if (token) {
@@ -250,6 +254,7 @@ class App extends Component {
           body={body}
           recipient={recipient}
           subject={subject}
+          city={city}
         />
       );
     }

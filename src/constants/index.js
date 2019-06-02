@@ -6,6 +6,8 @@ export const CHUNK = 4;
 
 export const MAX_RES = `maxResults=${CHUNK * 2}`;
 
+export const LINK_CITY = 'http://ip-api.com/json';
+
 export const CATEGORY = [
   'UNREAD', 'CATEGORY_SOCIAL', 'INBOX',
   'CATEGORY_UPDATES', 'CATEGORY_PERSONAL',

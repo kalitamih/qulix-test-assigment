@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Header(props) {
-  const { imageUrl, name } = props;
+  const { imageUrl, name, city } = props;
   return (
     <header className="header">
       <div className="container">
@@ -17,7 +17,7 @@ function Header(props) {
           <div className="header-comp pull-right">
             <div className="dropdown">
               <a className="dropdown-toggle" className="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" href="#">
-                <span>New York</span>
+                <span>{city}</span>
                 <i className="icon-down-open" />
               </a>
               <ul className="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -50,6 +50,7 @@ function Header(props) {
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
 export default Header;
