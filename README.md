@@ -12,4 +12,4 @@ I hope I fullfiled essential requirements.
 
 I add a feature, which allows you to remove email. You need to select email by checkbox and click trash-icon. This is the simplest feature without putting email in trash. You completely discard messages from your box without possibility to return them. I did this, because I neeed to gain practice with diffent types of HTTP-requests.
 
-I add sending mail without attachments. It works, but I need to increase an quality validation of form and handling errors. In this this application doesn't catch something like 'error 404'.
+I add sending mail without attachments.
