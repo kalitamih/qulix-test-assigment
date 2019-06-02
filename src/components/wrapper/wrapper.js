@@ -13,12 +13,13 @@ import { CATEGORY } from '../../constants';
 
 function Wrapper(props) {
   const {
-    mailArr, value,
+    mailArr, value, createEmail,
     disableBtnNext, imageUrl, name,
     loading, error, handleButtons,
     handleChange, handleSearch, handleDelete,
     handleTypeEmail, handleSelectEmail,
     modalWindow, handleWindow,
+    recipient, subject, body,
   } = props;
   return (
     <div className="wrapper">
@@ -34,7 +35,11 @@ function Wrapper(props) {
             handleSearch={handleSearch}
             handleDelele={handleDelete}
             handleWindow={handleWindow}
+            createEmail={createEmail}
             modalWindow={modalWindow}
+            recipient={recipient}
+            subject={subject}
+            body={body}
           />
           <section className="postsContainer">
             {error && <h1 className="error-message">Something is wrong! Reload the page!</h1>}
@@ -66,6 +71,7 @@ Wrapper.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleButtons: PropTypes.func.isRequired,
+  createEmail: PropTypes.func.isRequired,
   handleSelectEmail: PropTypes.func.isRequired,
   handleTypeEmail: PropTypes.func.isRequired,
   handleWindow: PropTypes.func.isRequired,
@@ -76,6 +82,9 @@ Wrapper.propTypes = {
   value: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  recipient: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
   mailArr: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     Date: PropTypes.string,

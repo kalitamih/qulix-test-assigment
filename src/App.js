@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
+import formatEmail from 'format-email';
+import { Base64 } from 'js-base64';
 import Wrapper from './components/wrapper';
 import getArrEmails from './data/getArrEmails';
 import deleteMail from './data/deleteMail';
+import sentEmail from './data/sentEmail';
 import {
   GMAIL_ADDR, CHUNK, MAX_RES, CLIENT_ID,
 } from './constants';
@@ -25,6 +28,9 @@ class App extends Component {
     error: false,
     deleted: [],
     modalWindow: false,
+    recipient: '',
+    subject: '',
+    body: '',
   }
 
   resetState = (value, search) => {
@@ -39,6 +45,9 @@ class App extends Component {
       disableBtnNext: false,
       deleted: [],
       modalWindow: false,
+      recipient: '',
+      subject: '',
+      body: '',
     });
   }
 
@@ -133,7 +142,23 @@ class App extends Component {
 
   handleChange = (event) => {
     event.preventDefault();
-    this.setState({ value: event.target.value });
+    console.log(event.target.name);
+    switch (event.target.name) {
+      case 'search':
+        this.setState({ value: event.target.value });
+        break;
+      case 'recipient':
+        this.setState({ recipient: event.target.value });
+        break;
+      case 'subject':
+        this.setState({ subject: event.target.value });
+        break;
+      case 'body':
+        this.setState({ body: event.target.value });
+        break;
+      default:
+        break;
+    }
   }
 
   handleSearch = (event) => {
@@ -177,9 +202,20 @@ class App extends Component {
 
   handleWindow = (event) => {
     event.preventDefault();
-    console.log(event.target.id);
     if (event.target.id.slice(0, 7) === 'newItem') this.setState({ modalWindow: true });
     else this.setState({ modalWindow: false });
+  }
+
+  createEmail = (event) => {
+    event.preventDefault();
+    const {
+      email, recipient, subject, body, value, search, token,
+    } = this.state;
+    const raw = Base64.encodeURI(formatEmail(email, recipient, subject, body));
+    this.resetState(value, search);
+    sentEmail(raw, email, token)
+      .then(() => this.getList(email, 'pageToken=', token, search))
+      .catch(() => this.setState({ error: true }));
   }
 
   render() {
@@ -187,6 +223,7 @@ class App extends Component {
       token, mailData, page,
       value, disableBtnNext, imageUrl,
       name, loading, error,
+      subject, recipient, body,
       modalWindow,
     } = this.state;
     const mailArr = mailData.slice(CHUNK * (page - 1), CHUNK * page);
@@ -209,6 +246,10 @@ class App extends Component {
           handleDelete={this.handleDelete}
           modalWindow={modalWindow}
           handleWindow={this.handleWindow}
+          createEmail={this.createEmail}
+          body={body}
+          recipient={recipient}
+          subject={subject}
         />
       );
     }

@@ -4,7 +4,9 @@ import ModalWindow from '../modalWindow';
 
 function SearchRow(props) {
   const {
-    handleChange, value, handleSearch, handleDelele, modalWindow, handleWindow,
+    handleChange, value, handleSearch,
+    handleDelele, modalWindow, handleWindow,
+    recipient, subject, body, createEmail,
   } = props;
   return (
     <div className="searchForm row">
@@ -47,6 +49,11 @@ function SearchRow(props) {
         <ModalWindow
           modalWindow={modalWindow}
           handleWindow={handleWindow}
+          handleChange={handleChange}
+          createEmail={createEmail}
+          recipient={recipient}
+          subject={subject}
+          body={body}
         />
 
         <button
@@ -67,8 +74,12 @@ SearchRow.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   handleDelele: PropTypes.func.isRequired,
   handleWindow: PropTypes.func.isRequired,
+  createEmail: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   modalWindow: PropTypes.bool.isRequired,
+  body: PropTypes.string.isRequired,
+  recipient: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
 };
 
 
