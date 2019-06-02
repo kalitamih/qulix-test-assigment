@@ -48,8 +48,7 @@ class App extends Component {
       modalWindow: false,
       recipient: '',
       subject: '',
-      body: '',
-      city: '',
+      body: '',     
     });
   }
 
