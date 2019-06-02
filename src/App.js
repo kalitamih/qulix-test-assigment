@@ -3,7 +3,9 @@ import { GoogleLogin } from 'react-google-login';
 import Wrapper from './components/wrapper';
 import getArrEmails from './data/getArrEmails';
 import deleteMail from './data/deleteMail';
-import { GMAILADDR, CHUNK, MAXRES } from './constants';
+import {
+  GMAIL_ADDR, CHUNK, MAX_RES, CLIENT_ID,
+} from './constants';
 
 class App extends Component {
   state = {
@@ -22,6 +24,20 @@ class App extends Component {
     loading: false,
     error: false,
     deleted: [],
+  }
+
+  resetState = (value, search) => {
+    this.setState({
+      messages: [],
+      pageToken: [],
+      page: 1,
+      mailData: [],
+      value,
+      search,
+      endMail: false,
+      disableBtnNext: false,
+      deleted: [],
+    });
   }
 
   responseGoogle = (response) => {
@@ -46,8 +62,8 @@ class App extends Component {
   }
 
   getList = (email, nextPage, token, filter) => {
-    const request = `${GMAILADDR}${email}/messages`;
-    const reqListMail = `${request}?${MAXRES}&${nextPage}&access_token=${token}&q=${filter}`;
+    const request = `${GMAIL_ADDR}${email}/messages`;
+    const reqListMail = `${request}?${MAX_RES}&${nextPage}&access_token=${token}&q=${filter}`;
     const { messages, pageToken } = this.state;
 
     this.setState({
@@ -123,16 +139,7 @@ class App extends Component {
     const {
       email, value, token,
     } = this.state;
-    this.setState({
-      messages: [],
-      pageToken: [],
-      page: 1,
-      mailData: [],
-      search: value,
-      endMail: false,
-      disableBtnNext: false,
-      deleted: [],
-    });
+    this.resetState(value, value);
     this.getList(email, 'pageToken=', token, value);
   }
 
@@ -140,16 +147,7 @@ class App extends Component {
     const {
       email, token,
     } = this.state;
-    this.setState({
-      messages: [],
-      pageToken: [],
-      page: 1,
-      mailData: [],
-      value: type,
-      search: type,
-      endMail: false,
-      disableBtnNext: false,
-    });
+    this.resetState(type, type);
     this.getList(email, 'pageToken=', token, type);
   }
 
@@ -167,20 +165,12 @@ class App extends Component {
   handleDelete = (event) => {
     event.preventDefault();
     const {
-      deleted, email, token, search,
+      deleted, email, token, search, value,
     } = this.state;
     deleteMail(deleted, email, token)
       .then(() => { this.getList(email, 'pageToken=', token, search); return null; })
       .catch(() => this.setState({ error: true }));
-    this.setState({
-      messages: [],
-      pageToken: [],
-      page: 1,
-      mailData: [],
-      deleted: [],
-      endMail: false,
-      disableBtnNext: false,
-    });
+    this.resetState(value, search);
   }
 
   render() {
@@ -211,7 +201,7 @@ class App extends Component {
 
     return (
       <GoogleLogin
-        clientId="75453322041-pn5dhuulkpmuhlmu4o5o46n5svpqj6bm.apps.googleusercontent.com"
+        clientId={CLIENT_ID}
         className="google-login"
         buttonText="Login"
         onSuccess={this.responseGoogle}
