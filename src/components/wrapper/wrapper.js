@@ -18,6 +18,7 @@ function Wrapper(props) {
     loading, error, handleButtons,
     handleChange, handleSearch, handleDelete,
     handleTypeEmail, handleSelectEmail,
+    modalWindow, handleWindow,
   } = props;
   return (
     <div className="wrapper">
@@ -32,6 +33,8 @@ function Wrapper(props) {
             handleChange={handleChange}
             handleSearch={handleSearch}
             handleDelele={handleDelete}
+            handleWindow={handleWindow}
+            modalWindow={modalWindow}
           />
           <section className="postsContainer">
             {error && <h1 className="error-message">Something is wrong! Reload the page!</h1>}
@@ -65,7 +68,9 @@ Wrapper.propTypes = {
   handleButtons: PropTypes.func.isRequired,
   handleSelectEmail: PropTypes.func.isRequired,
   handleTypeEmail: PropTypes.func.isRequired,
+  handleWindow: PropTypes.func.isRequired,
   disableBtnNext: PropTypes.bool.isRequired,
+  modalWindow: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
   value: PropTypes.string.isRequired,

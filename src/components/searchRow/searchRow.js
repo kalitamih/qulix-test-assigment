@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ModalWindow from '../modalWindow';
 
 function SearchRow(props) {
   const {
-    handleChange, value, handleSearch, handleDelele,
+    handleChange, value, handleSearch, handleDelele, modalWindow, handleWindow,
   } = props;
   return (
     <div className="searchForm row">
@@ -33,10 +34,20 @@ function SearchRow(props) {
       </div>
 
       <div className="options col-sm-10">
-        <button type="button" title="Add new item" className="newItem">
-          <i className="icon-plus-small" />
-          <span>New Item</span>
+        <button
+          type="button"
+          title="Add new item"
+          className="newItem"
+          id="newItemButton"
+          onClick={handleWindow}
+        >
+          <i className="icon-plus-small" id="newItemIcon" />
+          <span id="newItemSpan">New Item</span>
         </button>
+        <ModalWindow
+          modalWindow={modalWindow}
+          handleWindow={handleWindow}
+        />
 
         <button
           type="button"
@@ -55,7 +66,9 @@ SearchRow.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   handleDelele: PropTypes.func.isRequired,
+  handleWindow: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  modalWindow: PropTypes.bool.isRequired,
 };
 
 

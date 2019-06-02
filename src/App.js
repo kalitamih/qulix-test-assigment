@@ -24,6 +24,7 @@ class App extends Component {
     loading: false,
     error: false,
     deleted: [],
+    modalWindow: false,
   }
 
   resetState = (value, search) => {
@@ -37,6 +38,7 @@ class App extends Component {
       endMail: false,
       disableBtnNext: false,
       deleted: [],
+      modalWindow: false,
     });
   }
 
@@ -173,9 +175,19 @@ class App extends Component {
     this.resetState(value, search);
   }
 
+  handleWindow = (event) => {
+    event.preventDefault();
+    console.log(event.target.id);
+    if (event.target.id.slice(0, 7) === 'newItem') this.setState({ modalWindow: true });
+    else this.setState({ modalWindow: false });
+  }
+
   render() {
     const {
-      token, mailData, page, value, disableBtnNext, imageUrl, name, loading, error,
+      token, mailData, page,
+      value, disableBtnNext, imageUrl,
+      name, loading, error,
+      modalWindow,
     } = this.state;
     const mailArr = mailData.slice(CHUNK * (page - 1), CHUNK * page);
     if (token) {
@@ -195,6 +207,8 @@ class App extends Component {
           handleSelectEmail={this.handleSelectEmail}
           handleButtons={this.handleButtons}
           handleDelete={this.handleDelete}
+          modalWindow={modalWindow}
+          handleWindow={this.handleWindow}
         />
       );
     }
