@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CATEGORY } from '../../constants';
 
 function Media(props) {
   const { mailData, handleSelectEmail } = props;
@@ -51,14 +52,7 @@ Media.propTypes = {
     Subject: PropTypes.string,
     snippet: PropTypes.string,
     tag: PropTypes.arrayOf(PropTypes.oneOf(
-      [
-        'UNREAD', 'CATEGORY_SOCIAL', 'INBOX',
-        'CATEGORY_UPDATES', 'CATEGORY_PERSONAL',
-        'CATEGORY_PROMOTIONS', 'IMPORTANT',
-        'TRASH', 'SPAM', 'STARRED',
-        'SENT', 'DRAFT', 'CATEGORY_PROMOTIONS',
-        'CATEGORY_UPDATES', 'CATEGORY_FORUMS',
-      ],
+      CATEGORY,
     )),
   }).isRequired,
   handleSelectEmail: PropTypes.func.isRequired,

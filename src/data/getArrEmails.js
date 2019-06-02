@@ -22,4 +22,16 @@ const handleEmail = (url, id) => (
       return obj;
     }));
 
-export default handleEmail;
+const getArrEmails = (data, token, request) => {
+  const arr = [];
+  for (let i = 0; i < data.length; i += 1) {
+    arr.push(
+      handleEmail(
+        `${request}/${data[i].id}?access_token=${token}`, data[i].id,
+      ),
+    );
+  }
+  return arr;
+};
+
+export default getArrEmails;
