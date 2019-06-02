@@ -1,7 +1,9 @@
 import convert from './convert';
+import { handleErrors } from '.';
 
 const handleEmail = (url, id) => (
   fetch(url)
+    .then(response => handleErrors(response))
     .then(data => data.json())
     .then((data) => {
       const obj = {};

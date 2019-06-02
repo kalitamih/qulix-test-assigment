@@ -10,7 +10,7 @@ function Media(props) {
         <div className="userInfo clearfix">
           <span>{mailData.From}</span>
           <div className="commentsAndTime pull-right">
-            <label htmlFor={mailData.id}>
+            <label htmlFor={mailData.id} className="containerCheckbox">
               <input type="checkbox" id={mailData.id} onChange={handleSelectEmail} />
               <span className="checkmark" />
             </label>

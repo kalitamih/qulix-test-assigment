@@ -3,9 +3,9 @@ import { GoogleLogin } from 'react-google-login';
 import formatEmail from 'format-email';
 import { Base64 } from 'js-base64';
 import Wrapper from './components/wrapper';
-import getArrEmails from './data/getArrEmails';
-import deleteMail from './data/deleteMail';
-import sentEmail from './data/sentEmail';
+import {
+  getArrEmails, handleErrors, deleteMail, sentEmail,
+} from './data';
 import {
   GMAIL_ADDR, CHUNK, MAX_RES, CLIENT_ID,
 } from './constants';
@@ -83,6 +83,7 @@ class App extends Component {
     });
 
     fetch(reqListMail)
+      .then(response => handleErrors(response))
       .then(body => body.json())
       .then((data) => {
         if (data.nextPageToken) pageToken.push(data.nextPageToken);
@@ -142,7 +143,6 @@ class App extends Component {
 
   handleChange = (event) => {
     event.preventDefault();
-    console.log(event.target.name);
     switch (event.target.name) {
       case 'search':
         this.setState({ value: event.target.value });

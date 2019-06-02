@@ -1,4 +1,5 @@
 import { GMAIL_ADDR } from '../constants';
+import { handleErrors } from '.';
 
 const sentEmail = (raw, user, token) => {
   const lnk = `${GMAIL_ADDR}${user}/messages/send?access_token=${token}`;
@@ -13,7 +14,8 @@ const sentEmail = (raw, user, token) => {
     method,
     headers,
     body,
-  });
+  })
+    .then(response => handleErrors(response));
 };
 
 export default sentEmail;
